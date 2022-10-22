@@ -31,6 +31,40 @@ docker rm $(docker ps -aq)
 c44cde856cf2
 ```
 
+### Docker volume を確認する
+
+コンテナを削除しても永続化した volume は残り続けるので、
+コンテナを削除したら、不要になった volume も削除したい。
+
+Docker volume を確認するには、`docker volume ls` コマンドを実行する。
+
+`Docker volume 一覧を表示するコマンド`
+``` console
+docker volume ls
+```
+
+`実行結果例:`
+``` console
+DRIVER    VOLUME NAME
+local     react-dev-container_devcontainer_node_modules
+local     vscode
+```
+
+### Docker volume の削除
+
+Docker volume を削除するには、`docker volume rm` コマンドを実行する。
+
+`Docker volume を削除するコマンド（VOLUME NAME に react-dev-container_devcontainer_node_modules を指定した場合）`
+``` console
+docker volume rm react-dev-container_devcontainer_node_modules
+```
+
+`実行結果例:`
+``` console
+Untagged: react-dev-container_devcontainer-react-dev:latest
+react-dev-container_devcontainer_node_modules
+```
+
 ## イメージの削除
 
 docker images でローカルに保存されている全てのイメージを表示できます。
