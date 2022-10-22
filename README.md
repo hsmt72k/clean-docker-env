@@ -5,18 +5,42 @@
 - Windows 11 Home Ver. 21H2
 - Docker Desktop for Windows
 
-## 起動中のコンテナの確認
+## コンテナの状況確認
 
-docker ps でプロセスの状態を確認
+## 起動中のコンテナを表示
 
+docker ps コマンドで、起動しているコンテナの状態を確認できる。
+
+`起動しているコンテナ一覧を表示するコマンド` 
 ```console
 docker ps
 ```
+
+## すべてのコンテナを表示
+
+起動しているコンテナだけではなく、
+停止しているコンテナも含めたい場合は、-a オプションをコマンドに含める。
+
+`停止しているコンテナも含めてコンテナ一覧を表示するコマンド` 
+```console
+docker ps -a
+```
+
 ## 停止中のコンテナの削除
 
-docker rm コンテナIDもしくはコンテナ名 ですべてのコンテナを削除できます。
+停止中のコンテナを削除するには、`docker rm` コマンドを実行する。
 
-次のコマンドは、docker ps -q で全コンテナのIDを取得し、それをdocker rm に渡しているコマンドです。
+`docker rm` コマンドの引数には、CONTAINER ID を指定する。
+
+`コンテナを削除するコマンド（CONTAINER ID に 41595c20a1d7 を指定した場合）`
+``` console
+docker rm 41595c20a1d7
+```
+
+### ローカルにあるコンテナをすべて削除したい場合
+
+次のコマンドは、docker ps -q で全コンテナの ID を取得し、
+その結果を docker rm に渡しているコマンドとなる。
 
 ```console
 docker rm $(docker ps -aq)
@@ -31,7 +55,7 @@ docker rm $(docker ps -aq)
 c44cde856cf2
 ```
 
-### Docker volume を確認する
+## Docker volume を確認する
 
 コンテナを削除しても永続化した volume は残り続けるので、
 コンテナを削除したら、不要になった volume も削除したい。
@@ -50,24 +74,27 @@ local     react-dev-container_devcontainer_node_modules
 local     vscode
 ```
 
-### Docker volume の削除
+## Docker volume の削除
 
 Docker volume を削除するには、`docker volume rm` コマンドを実行する。
 
-`Docker volume を削除するコマンド（VOLUME NAME に react-dev-container_devcontainer_node_modules を指定した場合）`
+`Docker volume を削除するコマンド（VOLUME NAME に react_devcontainer を指定した場合）`
 ``` console
-docker volume rm react-dev-container_devcontainer_node_modules
+docker volume rm react_devcontainer
 ```
 
-`実行結果例:`
-``` console
-Untagged: react-dev-container_devcontainer-react-dev:latest
-react-dev-container_devcontainer_node_modules
+### ローカルにある Volume をすべて削除したい場合
+
+次のコマンドは、docker volume ls で全イメージの ID を取得し、
+その結果を docker rm に渡しているコマンドとなる。
+
+```console
+docker volume rm $(docker volume ls -q)
 ```
 
-## イメージの削除
+## Docker Image の確認
 
-docker images でローカルに保存されている全てのイメージを表示できます。
+docker images でローカルに保存されている全てのイメージを表示できる。
 
 ```console 
 docker images
@@ -83,7 +110,20 @@ explainhow_to_start_dotnet_apiwith_efwith_mssql_db   latest              ca68341
 ... 中略 ...
 microsoft/mssql-server-linux                         latest              314918ddaedf        2 years ago         1.35GB
 ```
-次のコマンドは、docker images -q で全イメージのIDを取得し、それを docker rmi に渡しているコマンドになります。
+
+## イメージの削除
+
+Docker Image を削除するには、`docker rmi` コマンドを実行する。
+
+`Docker Image を削除するコマンド（IMAGE ID に 951174b03a8c を指定した場合）`
+``` console
+docker rmi 951174b03a8c
+```
+
+### ローカルにあるイメージをすべて削除したい場合
+
+次のコマンドは、docker images -q で全イメージの ID を取得し、
+その結果を docker rmi に渡しているコマンドとなる。
 
 ```console
 docker rmi $(docker images -q)
